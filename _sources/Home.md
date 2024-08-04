@@ -1,4 +1,4 @@
-# Training Pointer Networks Better via Evolutionary Algorithms
+# PTEA
 
 ## Introduction
 
