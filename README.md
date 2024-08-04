@@ -60,10 +60,9 @@ The results of our experiments demonstrate that evolutionary algorithms can sign
 
 We would like to thank the authors of the following repositories for their contributions:
 
-1. Pointer Networks: <img alt="GitHub stars" src="https://github.com/shirgur/PointerNet">
-2. Graph Pointer Network <img alt="GitHub stars" src="https://github.com/qiang-ma/graph-pointer-network">
-3. Benchmarking TSP <img alt="GitHub start" src="https://github.com/yzhang-gh/benchmarking-tsp">
-
+1. Pointer Networks: <img alt="GitHub stars" src="https://img.shields.io/github/stars/shirgur/PointerNet?style=social">
+2. Graph Pointer Network <img alt="GitHub stars" src="https://img.shields.io/github/stars/qiang-ma/graph-pointer-network?style=social">
+3. Benchmarking TSP <img alt="GitHub stars" src="https://img.shields.io/github/stars/yzhang-gh/benchmarking-tsp?style=social">
 **Citation**
 
 If you use this code or our results in your research, please cite our paper:
