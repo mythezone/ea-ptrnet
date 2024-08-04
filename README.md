@@ -22,8 +22,8 @@ To set up the environment, follow these steps:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/mythezone/ea-ptrnet.git
+    cd ea-ptrnet
     ```
 
 2. Create a virtual environment and activate it:
@@ -45,3 +45,38 @@ To train the Pointer Network using evolutionary algorithms, run the following co
 
 ```sh
 python src/train.py --config configs/evolutionary_config.json
+
+```
+
+**Evaluation**
+To evaluate the trained model, use:
+
+**Results**
+The results of our experiments demonstrate that evolutionary algorithms can significantly improve the training efficiency and performance of Pointer Networks. Detailed results and analysis can be found in the results/ directory.
+
+**Acknowledgements**
+We would like to thank the authors of the following repositories for their contributions:
+
+Pointer Networks
+<img alt="GitHub stars" src="https://img.shields.io/github/stars/yourusername/pointer-networks?style=social">
+Evolutionary Algorithms
+<img alt="GitHub stars" src="https://img.shields.io/github/stars/yourusername/evolutionary-algorithms?style=social">
+
+**Citation**
+If you use this code or our results in your research, please cite our paper:
+
+```json
+@article{yourpaper2023,
+  title={Training Pointer Networks Better via Evolutionary Algorithms},
+  author={Muyao Zhong},
+  journal={Journal Name},
+  year={2023},
+  volume={X},
+  number={Y},
+  pages={Z-ZZ},
+  doi={10.1234/journal.doi}
+}
+```
+
+**License**
+This project is licensed under the MIT License - see the LICENSE file for details.
