@@ -4,27 +4,9 @@
 format: jb-book
 root: README
 parts:
-  - caption: 金融数据校准
+  - caption: Training Pointer Networks Better via Evolutionary Algorithms
     chapters:
-    - file: Calibration/0.Problems
-    - file: Calibration/1.NewLOB
-    - file: Calibration/2.EnvPrepare
-    - file: Calibration/3.DataPrepare
-    - file: Calibration/4.NewLOB
-    - file: Calibration/5.Visualization
-  - caption: 技术细节
-    chapters:
-    - file: Implemention/data_gen
-    - file: Implemention/module_info
-  - caption: 相关研究
-    chapters:
-    - file: Others/sbi
-    - file: Others/vol_pred
-    - file: Others/normal_flows
-  - caption: Wiki
-    chapters:
-    - file: Wiki/financial_words
-    - file: Wiki/cs_words
+    - file: Chatpers/introduction
   - caption: 参考文献
     chapters:
     - file: Bib/reference
