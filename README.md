@@ -4,6 +4,10 @@
 ![License](https://img.shields.io/github/license/mythezone/ea-ptrnet)
 ![GitHub stars](https://img.shields.io/github/stars/mythezone/ea-ptrnet?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/mythezone/ea-ptrnet?style=social)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+![Lightning](https://img.shields.io/badge/-Lightning-792EE5?logo=lightning&logoColor=white)
+![Comet](https://img.shields.io/badge/Comet-FF6F00?logo=comet&logoColor=white)
+![TensorBoard](https://img.shields.io/badge/TensorBoard-FF6F00?logo=tensorboard&logoColor=white)
 
 
 ## Introduction
