@@ -238,7 +238,7 @@
       
       
       
-      <li><a href="https://github.com/mythezone/ptrnet-ea" target="_blank"
+      <li><a href="https://github.com/mythezone/ea-ptrnet" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -255,7 +255,7 @@
       
       
       
-      <li><a href="https://github.com/mythezone/ptrnet-ea/issues/new?title=Issue%20on%20page%20%2FHome.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/mythezone/ea-ptrnet/issues/new?title=Issue%20on%20page%20%2FHome.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -356,7 +356,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -372,6 +374,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -383,7 +394,14 @@ document.write(`
                   
   <section id="training-pointer-networks-better-via-evolutionary-algorithms">
 <h1>Training Pointer Networks Better via Evolutionary Algorithms<a class="headerlink" href="#training-pointer-networks-better-via-evolutionary-algorithms" title="Link to this heading">#</a></h1>
-<p>请通过站点<a class="reference external" href="https://financial.mythezone.com/">PtrNet-EA</a>更好的阅读本文档.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This repository contains the implementation of the paper <strong>“Training Pointer Networks Better via Evolutionary Algorithms”</strong>. The paper explores the use of evolutionary algorithms to enhance the training process of Pointer Networks, a type of neural network architecture designed for solving combinatorial optimization problems.</p>
+</section>
+<section id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Link to this heading">#</a></h2>
+<p>Pointer Networks have shown great promise in solving various combinatorial optimization problems. However, their training can be challenging due to the complexity of the tasks they are designed to solve. This work proposes a novel approach to improve the training of Pointer Networks using evolutionary algorithms. By leveraging the strengths of evolutionary strategies, we aim to achieve better performance and generalization in Pointer Networks.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -435,6 +453,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
