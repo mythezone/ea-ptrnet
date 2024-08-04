@@ -6,7 +6,7 @@ root: Home
 parts:
   - caption: Training Pointer Networks Better via Evolutionary Algorithms
     chapters:
-    - file: Chatpers/Introduction
+    - file: Chapters/Introduction
   - caption: 参考文献
     chapters:
     - file: Bib/reference
