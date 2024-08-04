@@ -58,22 +58,24 @@ python src/train.py --config configs/evolutionary_config.json
 
 ```
 
-**Evaluation**
+## Evaluation
 
 To evaluate the trained model, use:
 
-**Results**
+## Results
 
 The results of our experiments demonstrate that evolutionary algorithms can significantly improve the training efficiency and performance of Pointer Networks. Detailed results and analysis can be found in the results/ directory.
 
-**Acknowledgements**
+## Acknowledgements
 
 We would like to thank the authors of the following repositories for their contributions:
 
 1. Pointer Networks: <img alt="GitHub stars" src="https://img.shields.io/github/stars/shirgur/PointerNet?style=social">
 2. Graph Pointer Network <img alt="GitHub stars" src="https://img.shields.io/github/stars/qiang-ma/graph-pointer-network?style=social">
 3. Benchmarking TSP <img alt="GitHub stars" src="https://img.shields.io/github/stars/yzhang-gh/benchmarking-tsp?style=social">
-**Citation**
+
+
+## Citation
 
 If you use this code or our results in your research, please cite our paper:
 
@@ -90,6 +92,6 @@ If you use this code or our results in your research, please cite our paper:
 }
 ```
 
-**License**
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
