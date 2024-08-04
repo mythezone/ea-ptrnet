@@ -1,5 +1,11 @@
 # Training Pointer Networks Better via Evolutionary Algorithms
 
+![Build Status](https://img.shields.io/github/actions/workflow/status/mythezone/ea-ptrnet/ci.yml?branch=main)
+![License](https://img.shields.io/github/license/mythezone/ea-ptrnet)
+![GitHub stars](https://img.shields.io/github/stars/mythezone/ea-ptrnet?style=social)
+![GitHub forks](https://img.shields.io/github/forks/mythezone/ea-ptrnet?style=social)
+
+
 ## Introduction
 
 This repository contains the implementation of the paper **"Training Pointer Networks Better via Evolutionary Algorithms"**. The paper explores the use of evolutionary algorithms to enhance the training process of Pointer Networks, a type of neural network architecture designed for solving combinatorial optimization problems.
