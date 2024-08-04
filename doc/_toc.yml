@@ -2,11 +2,11 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: Home
+root: README
 parts:
   - caption: Training Pointer Networks Better via Evolutionary Algorithms
     chapters:
-    - file: Chatpers/introduction
+    - file: Chatpers/Introduction
   - caption: 参考文献
     chapters:
     - file: Bib/reference

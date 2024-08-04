@@ -6,8 +6,8 @@ default_commit="regular update."
 
 parameter=${1:-$default_commit}
 
-jupyter-book build . && \
-git add .. && \
+jupyter-book build ./doc && \
+git add . && \
 git commit -m  "$parameter $current_datetime" && \
 git push origin main && \
-ghp-import -n -p -f _build/html
+ghp-import -n -p -f doc/_build/html
