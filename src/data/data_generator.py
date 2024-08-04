@@ -1,3 +1,16 @@
+"""
+Created on : 2024-08-04
+Created by : Mythezone
+Updated by : Mythezone
+Email      : mythezone@gmail.com
+FileName   : ~/project/github/ea-ptrnet/src/data/Data_Generator.py
+Description: Generating Datasets
+---
+Updated    : 
+---
+Todo       : 
+"""
+
 import torch
 from torch.utils.data import Dataset
 import numpy as np

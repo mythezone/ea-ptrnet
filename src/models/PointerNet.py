@@ -1,3 +1,17 @@
+"""
+Created on : 2024-08-04
+Created by : Mythezone
+Updated by : Mythezone
+Email      : mythezone@gmail.com
+FileName   : ~/project/github/ea-ptrnet/src/models/PointerNet.py
+Description: The Original Pointer Networks
+---
+Updated    : 
+---
+Todo       : 
+"""
+
+
 import torch
 import torch.nn as nn
 from torch.nn import Parameter

@@ -5,6 +5,7 @@ current_datetime=$(date '+%Y-%m-%d %H:%M:%S')
 default_commit="regular update."
 
 parameter=${1:-$default_commit}
+source venv/bin/activate
 
 jupyter-book build ./doc && \
 git add . && \
