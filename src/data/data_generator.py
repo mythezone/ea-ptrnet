@@ -17,34 +17,43 @@ import numpy as np
 import itertools
 from tqdm import tqdm
 
+# Insert the path into sys.path for importing.
+import sys
+import os
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-def tsp_opt(points):
-    """
-    Dynamic programing solution for TSP - O(2^n*n^2)
-    https://gist.github.com/mlalevic/6222750
+from models.dynamic_programming import TSP_OPT
 
-    :param points: List of (x, y) points
-    :return: Optimal solution
-    """
 
-    def length(x_coord, y_coord):
-        return np.linalg.norm(np.asarray(x_coord) - np.asarray(y_coord))
+# def tsp_opt(points):
+#     """
+#     Dynamic programing solution for TSP - O(2^n*n^2)
+#     https://gist.github.com/mlalevic/6222750
 
-    # Calculate all lengths
-    all_distances = [[length(x, y) for y in points] for x in points]
-    # Initial value - just distance from 0 to every other point + keep the track of edges
-    A = {(frozenset([0, idx+1]), idx+1): (dist, [0, idx+1]) for idx, dist in enumerate(all_distances[0][1:])}
-    cnt = len(points)
-    for m in range(2, cnt):
-        B = {}
-        for S in [frozenset(C) | {0} for C in itertools.combinations(range(1, cnt), m)]:
-            for j in S - {0}:
-                # This will use 0th index of tuple for ordering, the same as if key=itemgetter(0) used
-                B[(S, j)] = min([(A[(S-{j}, k)][0] + all_distances[k][j], A[(S-{j}, k)][1] + [j])
-                                 for k in S if k != 0 and k != j])
-        A = B
-    res = min([(A[d][0] + all_distances[0][d[1]], A[d][1]) for d in iter(A)])
-    return np.asarray(res[1])
+#     :param points: List of (x, y) points
+#     :return: Optimal solution
+#     """
+
+#     def length(x_coord, y_coord):
+#         return np.linalg.norm(np.asarray(x_coord) - np.asarray(y_coord))
+
+#     # Calculate all lengths
+#     all_distances = [[length(x, y) for y in points] for x in points]
+#     # Initial value - just distance from 0 to every other point + keep the track of edges
+#     A = {(frozenset([0, idx+1]), idx+1): (dist, [0, idx+1]) for idx, dist in enumerate(all_distances[0][1:])}
+#     cnt = len(points)
+#     for m in range(2, cnt):
+#         B = {}
+#         for S in [frozenset(C) | {0} for C in itertools.combinations(range(1, cnt), m)]:
+#             for j in S - {0}:
+#                 # This will use 0th index of tuple for ordering, the same as if key=itemgetter(0) used
+#                 B[(S, j)] = min([(A[(S-{j}, k)][0] + all_distances[k][j], A[(S-{j}, k)][1] + [j])
+#                                  for k in S if k != 0 and k != j])
+#         A = B
+#     res = min([(A[d][0] + all_distances[0][d[1]], A[d][1]) for d in iter(A)])
+#     return np.asarray(res[1])
 
 
 class TSPDataset(Dataset):
@@ -53,12 +62,18 @@ class TSPDataset(Dataset):
 
     """
 
-    def __init__(self, data_size, seq_len, solver=tsp_opt, solve=True):
+    def __init__(self, data_size, seq_len, solver=TSP_OPT, solve=True, file_path="None", random_seed = 1234):
         self.data_size = data_size
         self.seq_len = seq_len
         self.solve = solve
         self.solver = solver
-        self.data = self._generate_data()
+        self.file_path=file_path
+        self.random_seed = random_seed
+        if os.path.exists(file_path):
+            self.data = self.load_data()
+        else:
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            self.data = self._generate_data()
 
     def __len__(self):
         return self.data_size
@@ -75,19 +90,27 @@ class TSPDataset(Dataset):
         """
         :return: Set of points_list ans their One-Hot vector solutions
         """
+        torch.random.manual_seed(self.random_seed)
+        np.random.seed(self.random_seed)
+        
         points_list = []
         solutions = []
         data_iter = tqdm(range(self.data_size), unit='data')
         for i, _ in enumerate(data_iter):
             data_iter.set_description('Data points %i/%i' % (i+1, self.data_size))
             points_list.append(np.random.random((self.seq_len, 2)))
+        
+            
         solutions_iter = tqdm(points_list, unit='solve')
+        
         if self.solve:
             for i, points in enumerate(solutions_iter):
                 solutions_iter.set_description('Solved %i/%i' % (i+1, len(points_list)))
                 solutions.append(self.solver(points))
         else:
             solutions = None
+            
+        torch.save({'Points_List':points_list, 'Solutions':solutions}, self.file_path)
 
         return {'Points_List':points_list, 'Solutions':solutions}
 
@@ -96,8 +119,17 @@ class TSPDataset(Dataset):
         :param points: List of integers representing the points indexes
         :return: Matrix of One-Hot vectors
         """
+        
         vec = np.zeros((len(points), self.seq_len))
         for i, v in enumerate(vec):
             v[points[i]] = 1
 
         return vec
+    
+    def load_data(self):
+        return torch.load(self.file_path)
+    
+if __name__ == "__main__":
+    data_path = "./dataset/train/test_version1_1000_5_1234.pth"
+    
+    TSPDataset(data_size=100, seq_len=5, file_path=data_path)

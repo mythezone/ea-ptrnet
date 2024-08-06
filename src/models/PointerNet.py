@@ -116,7 +116,7 @@ class Attention(nn.Module):
         self.softmax = nn.Softmax()
 
         # Initialize vector V
-        nn.init.uniform(self.V, -1, 1)
+        nn.init.uniform_(self.V, -1, 1)
 
     def forward(self, input,
                 context,
@@ -256,7 +256,7 @@ class Decoder(nn.Module):
             mask  = mask * (1 - one_hot_pointers)
 
             # Get embedded inputs by max indices
-            embedding_mask = one_hot_pointers.unsqueeze(2).expand(-1, -1, self.embedding_dim).byte()
+            embedding_mask = one_hot_pointers.unsqueeze(2).expand(-1, -1, self.embedding_dim).bool()
             decoder_input = embedded_inputs[embedding_mask.data].view(batch_size, self.embedding_dim)
 
             outputs.append(outs.unsqueeze(0))
@@ -268,7 +268,7 @@ class Decoder(nn.Module):
         return (outputs, pointers), hidden
 
 
-class PointerNet(nn.Module):
+class PointerNetTorch(nn.Module):
     """
     Pointer-Net
     """
@@ -288,7 +288,7 @@ class PointerNet(nn.Module):
         :param bool bidir: Bidirectional
         """
 
-        super(PointerNet, self).__init__()
+        super(PointerNetTorch, self).__init__()
         self.embedding_dim = embedding_dim
         self.bidir = bidir
         self.embedding = nn.Linear(2, embedding_dim)
@@ -301,7 +301,7 @@ class PointerNet(nn.Module):
         self.decoder_input0 = Parameter(torch.FloatTensor(embedding_dim), requires_grad=False)
 
         # Initialize decoder_input0
-        nn.init.uniform(self.decoder_input0, -1, 1)
+        nn.init.uniform_(self.decoder_input0, -1, 1)
 
     def forward(self, inputs):
         """
@@ -334,3 +334,94 @@ class PointerNet(nn.Module):
                                                            encoder_outputs)
 
         return  outputs, pointers
+    
+import lightning as L 
+
+    
+class PointerNet(L.LightningModule):
+    """
+    Pointer-Net
+    """
+
+    def __init__(self, embedding_dim, hidden_dim, lstm_layers, dropout, bidir=False):
+        """
+        Initiate Pointer-Net
+
+        :param int embedding_dim: Number of embedding channels
+        :param int hidden_dim: Encoders hidden units
+        :param int lstm_layers: Number of layers for LSTMs
+        :param float dropout: Float between 0-1
+        :param bool bidir: Bidirectional
+        """
+        super(PointerNet, self).__init__()
+        self.embedding_dim = embedding_dim
+        self.bidir = bidir
+        self.embedding = nn.Linear(2, embedding_dim)
+        self.encoder = Encoder(embedding_dim, hidden_dim, lstm_layers, dropout, bidir)
+        self.decoder = Decoder(embedding_dim, hidden_dim)
+        self.decoder_input0 = Parameter(torch.FloatTensor(embedding_dim), requires_grad=False)
+
+        # Initialize decoder_input0
+        nn.init.uniform_(self.decoder_input0, -1, 1)
+
+    def forward(self, inputs):
+        """
+        Forward pass
+        """
+        batch_size = inputs.size(0)
+        input_length = inputs.size(1)
+
+        decoder_input0 = self.decoder_input0.unsqueeze(0).expand(batch_size, -1)
+
+        inputs = inputs.view(batch_size * input_length, -1)
+        embedded_inputs = self.embedding(inputs).view(batch_size, input_length, -1)
+
+        encoder_hidden0 = self.encoder.init_hidden(embedded_inputs)
+        encoder_outputs, encoder_hidden = self.encoder(embedded_inputs,
+                                                       encoder_hidden0)
+        if self.bidir:
+            decoder_hidden0 = (torch.cat(encoder_hidden[0][-2:], dim=-1),
+                               torch.cat(encoder_hidden[1][-2:], dim=-1))
+        else:
+            decoder_hidden0 = (encoder_hidden[0][-1],
+                               encoder_hidden[1][-1])
+        (outputs, pointers), decoder_hidden = self.decoder(embedded_inputs,
+                                                           decoder_input0,
+                                                           decoder_hidden0,
+                                                           encoder_outputs)
+
+        return  outputs, pointers
+
+    def training_step(self, batch, batch_idx):
+        """
+        Training step
+        """
+        inputs, targets = batch
+        outputs, _ = self(inputs)
+        loss = self.compute_loss(outputs, targets)
+        self.log('train_loss', loss)
+        return loss
+
+    def validation_step(self, batch, batch_idx):
+        """
+        Validation step
+        """
+        inputs, targets = batch
+        outputs, _ = self(inputs)
+        loss = self.compute_loss(outputs, targets)
+        self.log('val_loss', loss)
+        return loss
+
+    def configure_optimizers(self):
+        """
+        Configure optimizers
+        """
+        optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
+        return optimizer
+
+    def compute_loss(self, outputs, targets):
+        """
+        Compute loss
+        """
+        # Your loss computation here
+        pass

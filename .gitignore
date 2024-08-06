@@ -7,6 +7,7 @@ venv
 __pycache__
 .ipynb_checkpoints
 ref
+dataset/*
 
 
 #Files
@@ -17,3 +18,5 @@ ref
 **/*.so
 **/*.dylib
 
+**/*.pt
+**/*.pth
